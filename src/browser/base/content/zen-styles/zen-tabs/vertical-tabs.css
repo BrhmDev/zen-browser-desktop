@@ -307,6 +307,10 @@
         margin-top: var(--zen-element-separation) !important;
       }
     }
+
+    & .tab-content {
+      justify-content: unset !important;
+    }
   }
 
   /* Mark: toolbox as collapsed */
@@ -683,5 +687,9 @@
         display: none !important;
       }
     }
+  }
+
+  .tab-close-button {
+    margin-left: auto;
   }
 }

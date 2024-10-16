@@ -226,3 +226,51 @@
 #zenSplitViewModifier:not([has-enabled-realloc])[toast] #zenSplitViewModifierEnabledToast {
   display: revert;
 }
+
+.tab-content {
+  --zen-split-indicator-size: 16px;
+}
+.tabbrowser-tab {
+  --follow-theme-color: 50%; /* How close the split indicator colors will be to the theme color*/
+  --split-color-raw: hsl(calc(var(--zen-split-id) * 137.5077640500378546463487) 100% 50%);
+  --split-light-raw: color-mix(in hsl, hsl(0 0% calc(mod(var(--zen-split-id) * 38.196601125 * 2, 100))) 90%, currentColor);
+  --split-color: color-mix(in srgb, color-mix(in srgb, var(--split-color-raw), var(--split-light-raw) var(--follow-theme-color)) 70%, var(--zen-primary-color));
+}
+
+.split-indicator {
+  list-style-image: url('chrome://browser/skin/zen-icons/link.svg');
+  fill-opacity: 1;
+  -moz-context-properties: fill, fill-opacity;
+  width: var(--zen-split-indicator-size);
+  height: var(--zen-split-indicator-size);
+  align-self: center;
+  margin-left: 6px;
+  display: none;
+  fill: var(--split-color);
+}
+
+.tabbrowser-tab[zen-split] .split-indicator {
+  display: block;
+}
+
+
+/* Mark: toolbox as collapsed*/
+#navigator-toolbox:is(:not(
+      #navigator-toolbox[zen-user-hover='true'][zen-has-hover],
+      #navigator-toolbox[zen-user-hover='true']:focus-within,
+      #navigator-toolbox[zen-user-hover='true'][movingtab],
+      #navigator-toolbox[zen-user-hover='true'][flash-popup],
+      #navigator-toolbox[zen-user-hover='true'][has-popup-menu],
+      #navigator-toolbox[zen-user-hover='true']:has(*[open='true']:not(tab):not(#zen-sidepanel-button)),
+      #navigator-toolbox[zen-expanded='true']:not([zen-user-hover='true'])
+    )) {
+  .split-indicator {
+    position: relative;
+    margin-left: -25px;
+    margin-top: -18px;
+    rotate: -45deg;
+  }
+  .tabbrowser-tab[zen-split] .tab-icon-stack  {
+    margin-left: calc(var(--zen-split-indicator-size) * -.5);
+  }
+}

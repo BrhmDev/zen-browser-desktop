@@ -1,0 +1,22 @@
+diff --git a/browser/components/tabbrowser/content/tab.js b/browser/components/tabbrowser/content/tab.js
+index 8d4a0b1345ac2d2b0f1ed4f47f0298f74e2b31ac..4efc6d5a6f4f3e196d83877662988341586cf7a6 100644
+--- a/browser/components/tabbrowser/content/tab.js
++++ b/browser/components/tabbrowser/content/tab.js
+@@ -26,8 +26,7 @@
+                 onoverflow="this.setAttribute('textoverflow', 'true');"
+                 onunderflow="this.removeAttribute('textoverflow');"
+                 align="start"
+-                pack="center"
+-                flex="1">
++                pack="center">
+             <label class="tab-text tab-label" role="presentation"/>
+             <hbox class="tab-secondary-label">
+               <label class="tab-icon-sound-label tab-icon-sound-playing-label" data-l10n-id="browser-tab-audio-playing2" role="presentation"/>
+@@ -37,6 +36,7 @@
+               <label class="tab-icon-sound-label tab-icon-sound-tooltip-label" role="presentation"/>
+             </hbox>
+           </vbox>
++          <image class="split-indicator" role="presentation"></image>
+           <image class="tab-close-button close-icon" role="button" data-l10n-id="tabbrowser-close-tabs-button" data-l10n-args='{"tabCount": 1}' keyNav="false"/>
+         </hbox>
+       </stack>
