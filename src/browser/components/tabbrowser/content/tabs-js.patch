@@ -1,8 +1,23 @@
 diff --git a/browser/components/tabbrowser/content/tabs.js b/browser/components/tabbrowser/content/tabs.js
-index 282e7f31fe158d929130c17628f7e30f690fd666..c139830f6bbd84428310692cfb840bc390c5c6f3 100644
+index 137f1a3854f10aca0d0e3233a82c1c18fbdc2823..9e53ebeaa43746cf3b95ade361ce25bf8948ec05 100644
 --- a/browser/components/tabbrowser/content/tabs.js
 +++ b/browser/components/tabbrowser/content/tabs.js
-@@ -1387,10 +1387,12 @@
+@@ -500,6 +500,14 @@
+     }
+ 
+     startTabDrag(event, tab, { fromTabList = false } = {}) {
++      if (gBrowser.selectedTabs.some(tab => tab.splitView)) {
++        const groupIds = [];
++        gBrowser.selectedTabs.forEach((splitTab) => {
++          if (!splitTab.splitView || groupIds.includes(splitTab.splitId)) return;
++          groupIds.push(splitTab.splitId);
++        });
++        gBrowser.selectedTabs = [...new Set([...gBrowser.selectedTabs, ...groupIds.flatMap(id => gZenViewSplitter.getGroup(id).tabs)])];
++      }
+       let selectedTabs = gBrowser.selectedTabs;
+       let otherSelectedTabs = selectedTabs.filter(
+         selectedTab => selectedTab != tab
+@@ -1430,10 +1438,12 @@
  
      _handleTabSelect(aInstant) {
        let selectedTab = this.selectedItem;
@@ -18,7 +33,7 @@ index 282e7f31fe158d929130c17628f7e30f690fd666..c139830f6bbd84428310692cfb840bc3
        selectedTab._notselectedsinceload = false;
      }
  
-@@ -1449,7 +1451,7 @@
+@@ -1492,7 +1502,7 @@
          let tabsToReset = [];
          for (let i = numPinned; i < tabs.length; i++) {
            let tab = tabs[i];
@@ -27,7 +42,7 @@ index 282e7f31fe158d929130c17628f7e30f690fd666..c139830f6bbd84428310692cfb840bc3
            if (!isEndTab) {
              // keep tabs the same width
              tab.style.transition = "none";
-@@ -1629,7 +1631,7 @@
+@@ -1672,7 +1682,7 @@
        }
  
        let pinned = draggedTab.pinned;
