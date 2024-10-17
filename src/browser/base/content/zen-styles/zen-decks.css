@@ -231,10 +231,9 @@
   --zen-split-indicator-size: 13px;
 }
 .tabbrowser-tab {
-  --follow-theme-color: 50%; /* How close the split indicator colors will be to the theme color*/
-  --split-color-raw: hsl(calc(var(--zen-split-id) * 137.5077640500378546463487) 100% 50%);
-  --split-light-raw: color-mix(in hsl, hsl(0 0% calc(mod(var(--zen-split-id) * 38.196601125 * 2, 100))) 90%, currentColor);
-  --split-color: color-mix(in srgb, color-mix(in srgb, var(--split-color-raw), var(--split-light-raw) var(--follow-theme-color)) 70%, var(--zen-primary-color));
+  --split-color-brigthness: calc( (30 + mod(var(--zen-split-id) * 38.196601125*2 + 30, 100)*.7)/100);
+  --split-color-raw: hsla(calc(var(--zen-split-id) * 137.5077640500378546463487), 100%, 50%, var(--split-color-brigthness));
+  --split-color: color-mix(in hsl, var(--split-color-raw) 50%, var(--zen-primary-color));
 }
 
 .split-indicator {
