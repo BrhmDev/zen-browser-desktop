@@ -308,7 +308,7 @@
       }
     }
 
-    & .tab-content {
+    & .tab-content:not([pinned]) {
       justify-content: unset !important;
     }
   }
@@ -575,6 +575,7 @@
         & .tabbrowser-tab {
           & .tab-label-container {
             display: flex;
+            flex: 1;
           }
 
           & .tab-throbber,

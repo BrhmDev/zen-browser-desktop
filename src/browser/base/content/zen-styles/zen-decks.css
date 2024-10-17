@@ -228,7 +228,7 @@
 }
 
 .tab-content {
-  --zen-split-indicator-size: 16px;
+  --zen-split-indicator-size: 13px;
 }
 .tabbrowser-tab {
   --follow-theme-color: 50%; /* How close the split indicator colors will be to the theme color*/
@@ -253,7 +253,6 @@
   display: block;
 }
 
-
 /* Mark: toolbox as collapsed*/
 #navigator-toolbox:is(:not(
       #navigator-toolbox[zen-user-hover='true'][zen-has-hover],
@@ -263,14 +262,15 @@
       #navigator-toolbox[zen-user-hover='true'][has-popup-menu],
       #navigator-toolbox[zen-user-hover='true']:has(*[open='true']:not(tab):not(#zen-sidepanel-button)),
       #navigator-toolbox[zen-expanded='true']:not([zen-user-hover='true'])
-    )) {
-  .split-indicator {
+    )),  #navigator-toolbox:not([zen-user-hover]) #vertical-pinned-tabs-container {
+  & .split-indicator {
     position: relative;
-    margin-left: -25px;
-    margin-top: -18px;
+    margin-left: calc(-12px - var(--zen-split-indicator-size)*.8);
+    margin-right: calc(12px + var(--zen-split-indicator-size)*.8);
+    margin-top: calc(-4px - var(--zen-split-indicator-size));
     rotate: -45deg;
   }
-  .tabbrowser-tab[zen-split] .tab-icon-stack  {
-    margin-left: calc(var(--zen-split-indicator-size) * -.5);
+  & .tabbrowser-tab[zen-split] .tab-icon-stack  {
+    margin-left: var(--zen-split-indicator-size);
   }
 }
